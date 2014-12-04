@@ -116,7 +116,7 @@ static NSTimeInterval const kDefaultSwapAnimationClosedDuration = 0.35;
             self.menuViewController.view.transform = [self closeTransformForMenuView];
             self.containerView.transform = CGAffineTransformIdentity;
         } completion:^(BOOL finished) {
-            self.menuViewController.view.center = (CGPoint) { CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds) };
+            self.menuViewController.view.center = (CGPoint) { 130, CGRectGetMidY(self.view.bounds) };
             self.menuViewController.view.bounds = self.view.bounds;
         }];
     } else {
@@ -188,13 +188,13 @@ static NSTimeInterval const kDefaultSwapAnimationClosedDuration = 0.35;
 {
     CGFloat transformSize = 1.0f / self.zoomScale;
     CGAffineTransform transform = CGAffineTransformScale(self.menuViewController.view.transform, transformSize, transformSize);
-    return CGAffineTransformTranslate(transform, -(CGRectGetMidX(self.view.bounds)) - self.edgeOffset.horizontal, -self.edgeOffset.vertical);
+    return CGAffineTransformTranslate(transform, /*-(260) */ -self.edgeOffset.horizontal, -self.edgeOffset.vertical);
 }
 
 - (CGAffineTransform)openTransformForView:(UIView *)view
 {
     CGFloat transformSize = self.zoomScale;
-    CGAffineTransform newTransform = CGAffineTransformTranslate(view.transform, CGRectGetMidX(view.bounds) + self.edgeOffset.horizontal, self.edgeOffset.vertical);
+    CGAffineTransform newTransform = CGAffineTransformTranslate(view.transform, 260 + self.edgeOffset.horizontal, self.edgeOffset.vertical);
     return CGAffineTransformScale(newTransform, transformSize, transformSize);
 }
 
@@ -205,7 +205,7 @@ static NSTimeInterval const kDefaultSwapAnimationClosedDuration = 0.35;
     }
     
     if ([self.delegate respondsToSelector:@selector(sideMenuViewControllerWillOpenMenu:)]) {
-	    [self.delegate sideMenuViewControllerWillOpenMenu:self];
+            [self.delegate sideMenuViewControllerWillOpenMenu:self];
     }
     
     self.open = YES;
@@ -222,7 +222,7 @@ static NSTimeInterval const kDefaultSwapAnimationClosedDuration = 0.35;
         }
         
         if ([self.delegate respondsToSelector:@selector(sideMenuViewControllerDidOpenMenu:)]) {
-	        [self.delegate sideMenuViewControllerDidOpenMenu:self];
+                 [self.delegate sideMenuViewControllerDidOpenMenu:self];
         }
         
         if (completion) {
@@ -253,7 +253,7 @@ static NSTimeInterval const kDefaultSwapAnimationClosedDuration = 0.35;
     }
     
     if ([self.delegate respondsToSelector:@selector(sideMenuViewControllerWillCloseMenu:)]) {
-	    [self.delegate sideMenuViewControllerWillCloseMenu:self];
+            [self.delegate sideMenuViewControllerWillCloseMenu:self];
     }
     
     self.open = NO;
@@ -272,7 +272,7 @@ static NSTimeInterval const kDefaultSwapAnimationClosedDuration = 0.35;
         self.menuViewController.view.transform = CGAffineTransformIdentity;
 
         if ([self.delegate respondsToSelector:@selector(sideMenuViewControllerDidCloseMenu:)]) {
-	        [self.delegate sideMenuViewControllerDidCloseMenu:self];
+                 [self.delegate sideMenuViewControllerDidCloseMenu:self];
         }
         
         if (completion) {
