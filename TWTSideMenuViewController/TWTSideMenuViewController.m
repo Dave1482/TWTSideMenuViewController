@@ -81,7 +81,8 @@ static NSTimeInterval const kDefaultSwapAnimationClosedDuration = 0.35;
     self.containerView = [[UIView alloc] initWithFrame:self.view.bounds];
     self.containerView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    self.mainViewController.view.frame = self.containerView.bounds;
+    self.mainViewController.view.frame = CGRectMake(0,20,self.containerView.frame.size.width,self.containerView.frame.size.height - 20);
+    self.menuViewController.view.frame = CGRectMake(0,20,260,self.containerView.frame.size.height - 20);
     [self.containerView addSubview:self.mainViewController.view];
     [self.view addSubview:self.containerView];
     [self.mainViewController didMoveToParentViewController:self];
@@ -93,7 +94,7 @@ static NSTimeInterval const kDefaultSwapAnimationClosedDuration = 0.35;
     [self updateMenuViewWithTransform:[self closeTransformForMenuView]];
 }
 
-- (BOOL)shouldAutorotate
+/*- (BOOL)shouldAutorotate
 {
     return YES;
 }
@@ -146,7 +147,7 @@ static NSTimeInterval const kDefaultSwapAnimationClosedDuration = 0.35;
         [self updateMenuViewWithTransform:[self closeTransformForMenuView]];
     }
 }
-
+*/
 #pragma mark - Status Bar management
 
 - (UIViewController *)childViewControllerForStatusBarStyle
@@ -179,8 +180,8 @@ static NSTimeInterval const kDefaultSwapAnimationClosedDuration = 0.35;
 - (void)updateMenuViewWithTransform:(CGAffineTransform)transform
 {
     self.menuViewController.view.transform = transform;
-    self.menuViewController.view.center = (CGPoint) { CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds) };
-    self.menuViewController.view.bounds = self.view.bounds;
+    self.menuViewController.view.center = (CGPoint) { 260 /*CGRectGetMidX(self.view.bounds)*/, CGRectGetMidY(self.view.bounds) };
+    self.menuViewController.view.bounds = self.menuViewController.view.frame; //self.view.bounds;
 }
 
 - (CGAffineTransform)closeTransformForMenuView
